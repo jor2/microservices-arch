@@ -11,3 +11,8 @@ services:
     ports:
       - "8002:6000"
     image: jor2/go-service
+  javascript-service:
+    build: javascript-service
+    ports:
+      - "8003:4000"
+    image: jor2/javascript-service
