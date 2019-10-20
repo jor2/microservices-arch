@@ -1,0 +1,103 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: python-service
+  labels:
+    app: python-service
+spec:
+  type: NodePort
+  ports:
+  - port: 8001
+    name: http
+    nodePort: 30036
+    targetPort: 5000
+  selector:
+    app: python-service
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: python-service
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: python-service
+        version: v1
+    spec:
+      containers:
+      - name: python-service
+        image: jor2/python-service
+        ports:
+        - containerPort: 5000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: go-service
+  labels:
+    app: go-service
+spec:
+  type: NodePort
+  ports:
+  - port: 8002
+    name: http
+    nodePort: 30037
+    targetPort: 6000
+  selector:
+    app: go-service
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: go-service
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: go-service
+        version: v1
+    spec:
+      containers:
+      - image: jor2/go-service
+        name: go-service
+        ports:
+        - containerPort: 6000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: javascript-service
+  labels:
+    app: javascript-service
+spec:
+  type: NodePort
+  ports:
+  - port: 8003
+    name: http
+    nodePort: 30038
+    targetPort: 4000
+  selector:
+    app: javascript-service
+---
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: javascript-service
+  labels:
+    app: javascript-service
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: javascript-service
+        version: v1
+    spec:
+      containers:
+      - name: javascript-service
+        image: jor2/javascript-service
+        ports:
+        - containerPort: 4000
