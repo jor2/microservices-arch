@@ -1,11 +1,8 @@
-'use strict';
-
 var express = require('express');
 var app = express();
 
-app.get('/', function (req, res) {
-   res.writeHead(200, {'Content-Type': 'application/json'});
-   res.end(JSON.stringify("Hello World!"));
+app.get('*', (req, res) => {
+   res.send(JSON.stringify("Hello World! - from javascript api..."));
 })
 
 var server = app.listen(4000, function () {
@@ -14,5 +11,4 @@ var server = app.listen(4000, function () {
   var port = server.address().port
 
   console.log("Node.js API app listening at http://%s:%s", host, port)
-
 })

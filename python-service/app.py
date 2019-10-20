@@ -9,12 +9,12 @@ app.url_map.strict_slashes = False
 
 @app.route("/")
 def index():
-    return jsonify("Hello Wold!")
+    return jsonify("Hello Wold! - from Python api...")
 
 
 @app.route("/javascript")
 def javascript_response():
-    return jsonify(invoke_service(service="javascript-service").content.decode())
+    return jsonify(invoke_service(service="javascript-service"))
 
 
 @app.route("/go")
